@@ -1,0 +1,155 @@
+// Hàm chuyển đổi thập phân (0-255) thành chuỗi hex 2 ký tự
+@function decimal-to-hex($number) {
+    // 0123456789abcdef là bảng tra cứu
+    $hex-chars: "0123456789abcdef";
+    $first-digit: floor($number / 16); // Giá trị chữ số đầu (0-15)
+    $second-digit: $number % 16;      // Giá trị chữ số thứ hai (0-15)
+
+    // Lấy ký tự hex tương ứng từ bảng tra cứu
+    $d1: str-slice($hex-chars, $first-digit + 1, $first-digit + 1);
+    $d2: str-slice($hex-chars, $second-digit + 1, $second-digit + 1);
+
+    @return $d1 + $d2;
+}
+@function to-full-hex($color) {
+    $r: red($color);
+    $g: green($color);
+    $b: blue($color);
+    $a: alpha($color);
+
+    $r-hex: decimal-to-hex($r);
+    $g-hex: decimal-to-hex($g);
+    $b-hex: decimal-to-hex($b);
+
+    @if $a == 1 {
+        @return unquote("##{$r-hex}#{$g-hex}#{$b-hex}"); // #RRGGBB
+    } @else {
+        $a-val: round($a * 255);
+        $a-hex: decimal-to-hex($a-val);
+        @return unquote("##{$r-hex}#{$g-hex}#{$b-hex}#{$a-hex}"); // #RRGGBBAA
+    }
+}
+
+@function shorten-hex($color) {
+    $r: red($color);
+    $g: green($color);
+    $b: blue($color);
+    $a: alpha($color);
+
+    // Kiểm tra rút gọn 3 ký tự (và 4 ký tự với alpha)
+    @if ($r % 17 == 0) and ($g % 17 == 0) and ($b % 17 == 0) {
+        $r1: str-slice("0123456789abcdef", ($r / 17) + 1, ($r / 17) + 1);
+        $g1: str-slice("0123456789abcdef", ($g / 17) + 1, ($g / 17) + 1);
+        $b1: str-slice("0123456789abcdef", ($b / 17) + 1, ($b / 17) + 1);
+
+        @if $a == 1 {
+            @return unquote("##{$r1}#{$g1}#{$b1}"); // #RGB
+        } @else if (round($a * 255) % 17 == 0) {
+            $a1: str-slice("0123456789abcdef", round($a * 255 / 17) + 1, round($a * 255 / 17) + 1);
+            @return unquote("##{$r1}#{$g1}#{$b1}#{$a1}"); // #RGBA
+        }
+    }
+
+    // Nếu không rút gọn được: trả về chuỗi hex đầy đủ (sử dụng hàm đã sửa)
+    @return to-full-hex($color);
+}
+
+@function shorten-key-value($map) {
+    $result: ();
+
+    @each $key, $value in $map {
+        $short: shorten-hex($value);
+        $result: map-merge($result, ($key: $short));
+    }
+
+    @return $result;
+}
+
+$bgColors: shorten-key-value((
+    'fff': #ffffff,
+    'c80505': #c80505,
+    'ffe4c4': #ffe4c4,
+    'ed1c25': #ed1c25,
+    'ffeca0': #ffeca0,
+    'f0f8ff': #f0f8ff,
+    'f2f2f2': #f2f2f2,
+    '4caf50': #4caf50,
+    'ffd200': #ffd200,
+    'dddfe2': #dddfe2,
+    'ff3547': #ff3547,
+    '999': #999999,
+    '000c': #000000cc,
+    '2b2b2b': #2b2b2b,
+    '3c3442': #3c3442
+));
+
+$borderColors: shorten-key-value((
+    '000': #000000,
+    '0029ad': #0029ad,
+    'e0e0e0': #e0e0e0,
+    '666': #666666,
+    'fff': #ffffff,
+    '222': #222222,
+    'b3b3b3': #b3b3b3,
+    'dddfe2': #dddfe2,
+    'ed1c25': #ed1c25,
+    '555': #555555,
+    'eaeaea': #eaeaea,
+    '999': #999999,
+    'ff3547': #ff3547,
+    'c80505': #c80505,
+    'dadada': #dadada
+));
+$textColors: shorten-key-value((
+    '000': #000000,
+    '0029ad': #0029ad,
+    '666': #666666,
+    'fff': #ffffff,
+    '222': #222222,
+    'ed1c25': #ed1c25,
+    '555': #555555,
+    'ed3b3b': #ed3b3b,
+    '999': #999999,
+    'ff3547': #ff3547,
+    'c80505': #c80505,
+    'dadada': #dadada
+));
+
+$fontSizes: (
+    12: 12px,
+    13: 13px,
+    14: 14px,
+    15: 15px,
+    16: 16px,
+    18: 18px,
+    20: 20px,
+    22: 22px,
+    24: 24px,
+    30: 30px,
+    34: 34px
+);
+$roundeds: (
+    0: 0,
+    4: 4px,
+    null: 8px,
+    12: 12px,
+    circle: 50%,
+    pill: 50em
+);
+
+$shadows: (
+    0: none,
+    mini: (#0002 0px 1px 2px 0px, #0001 0px 1px 4px 0px),
+    thin: (#0003 0px 2px 5px 0px, #0002 0px 2px 10px 0px),
+);
+$fontWeights:  (4: 400, 7: 700);
+
+$heights: (
+    100: 100%,
+    100vh: 100vh
+);
+$aspectRatios: (
+    1: 1,
+    '4_3': unquote("4/3"),
+    '16_9': unquote("16/9"),
+);

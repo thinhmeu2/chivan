@@ -1,0 +1,66 @@
+@if $enable-grid-classes {
+  .row {
+    display: grid;
+    gap: var(--#{$prefix}gutter-y) var(--#{$prefix}gutter-x);
+    grid-template-columns: repeat($grid-columns, 1fr);
+
+    > * {
+      width: 100%;
+      min-width: 0;
+      grid-column: span $grid-columns;
+    }
+  }
+
+  .row-cols-auto > * {
+    grid-column: auto;
+  }
+
+  @for $i from 1 through $grid-row-columns {
+    .row-cols-#{$i} > * {
+      grid-column: span #{$grid-columns / $i};
+    }
+  }
+
+  @each $breakpoint, $breakpoint-value in $grid-breakpoints {
+    @media (min-width: #{$breakpoint-value}) {
+      @for $i from 1 through $grid-row-columns {
+        .row-cols-#{$breakpoint}-#{$i} > * {
+          grid-column: span #{$i};
+        }
+      }
+      .row-cols-#{$breakpoint}-auto > * {
+        grid-column: auto;
+      }
+    }
+  }
+
+  @for $i from 1 through $grid-columns {
+    .col-#{$i} {
+      grid-column: span #{$i};
+    }
+  }
+
+  .col {
+    grid-column: auto;
+  }
+
+  @each $breakpoint, $breakpoint-value in $grid-breakpoints {
+    @media (min-width: #{$breakpoint-value}) {
+      .col-#{$breakpoint} {
+        grid-column: auto;
+      }
+      @for $i from 1 through $grid-columns {
+        .col-#{$breakpoint}-#{$i} {
+          grid-column: span #{$i};
+        }
+      }
+    }
+  }
+
+  @for $i from 0 through 5 {
+    $gap: if($i == 0, 0, $i * 0.25rem);
+    .g-#{$i} { --#{$prefix}gutter-x: #{$gap}; --#{$prefix}gutter-y: #{$gap}; }
+    .gx-#{$i} { --#{$prefix}gutter-x: #{$gap}; }
+    .gy-#{$i} { --#{$prefix}gutter-y: #{$gap}; }
+  }
+}

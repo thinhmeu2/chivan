@@ -1,0 +1,53 @@
+.table-kqxs{
+    .number{
+        display: inline-flex;
+        height: 2rem;
+        justify-content: center;
+        align-items: center;
+        &:empty::after{
+            content: '...';
+        }
+    }
+    td:first-child{
+        width: 80px;
+    }
+}
+.table-kqxs-xsmb{
+    tr {
+        &:nth-child(5), &:nth-child(7) {
+            .number{
+                width: 33%;
+            }
+        }
+    }
+}
+.table-kqxs-multi{
+    .number{
+        display: block !important;
+    }
+}
+.table-kqxs-province{
+    tr:nth-child(5){
+        .number:nth-child(-n+3){
+            width: 33%;
+        }
+    }
+}
+.table-loto{
+    td:first-child{
+        width: 80px;
+    }
+}
+
+.table-kqxs-3d{
+    tr:nth-child(3){
+        .number{
+            width: 30%;
+        }
+    }
+    tr:nth-child(4){
+        .number{
+            width: 22%;
+        }
+    }
+}
