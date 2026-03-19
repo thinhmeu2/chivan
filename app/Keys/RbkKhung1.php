@@ -1,6 +1,6 @@
 <?php
 
-namespace ClassSoiCau;
+namespace App\Keys;
 
 class RbkKhung1 extends Base
 {

@@ -14,11 +14,9 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-    'ver_asset' => '0.05',
+    'ver_asset' => '0.01',
     'img_hold' => 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=',
     'date_format' => 'd/m/Y',
-    'vietlott_codes' => ['MEGA', 'POWER', 'MAX3D', 'MAX3DPRO'],
-    'vietlott_code' => 'VIETLOTT',
     'time_change_day' => 19,
 
     'name' => env('APP_NAME', 'Laravel'),

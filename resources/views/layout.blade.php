@@ -6,9 +6,9 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <link rel="stylesheet" href="/frontend/style.css?v={{ config('app.asset_url') }}">
+        <link rel="stylesheet" href="/frontend/css/style.css?v={{ config('app.ver_asset') }}">
     </head>
     <body>
-
+    <x-dynamic-component :component="$component" />
     </body>
 </html>

@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends BaseModel
 {
-    use RevisionTrait, LibraryTrait, HasSeoTrait;
     protected $casts = [
         'draw_dow' => 'array'
     ];

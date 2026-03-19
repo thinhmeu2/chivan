@@ -1,6 +1,6 @@
 <?php
 
-namespace ClassSoiCau;
+namespace App\Keys;
 
 class DanDe10_3 extends Base
 {

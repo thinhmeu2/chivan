@@ -1,5 +1,8 @@
 <?php
-namespace ClassSoiCau;
+namespace App\Keys;
+
+use App\Models\Result;
+use App\Models\Soicau;
 
 abstract class Base
 {
@@ -12,10 +15,10 @@ abstract class Base
     protected $win_date = null;
     protected $is_active = 1;
 
-    /** @var \Soicau_model */
+    /** @var Soicau */
     protected $soicauModel;
 
-    /** @var \Result_model */
+    /** @var Result */
     protected $resultModel;
     protected $checkOnlySpecial = 0;
     protected $rangeDate = 1;

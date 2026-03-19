@@ -1,10 +1,7 @@
 <?php
 namespace App\Services\FeServices;
 
-use App\DTO\BaseDto;
-use App\Helpers\BreadcrumbHelper;
 use App\Models\BaseModel;
-use App\Models\IsActiveTrait;
 use App\SelectColumns\DefaultApplySelectColumns;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -64,23 +61,5 @@ abstract class BaseService
         }
 
         return $sitemapData;
-    }
-
-    public function buildBreadcrumbAndAppendRelation(BaseModel $model, string $dtoClassName): void
-    {
-        /** @var $dtoClassName BaseDto */
-        $this->load($model, 'parent.url', true);
-        if ($model->relationLoaded('parent') && $model->parent)
-            $this->load($model->parent, 'parent.url', true);
-        if (isset($model->parent->parent)){
-            $i = $dtoClassName::from($model->parent->parent);
-            BreadcrumbHelper::add($i['name'], $i['url']);
-        }
-        if (isset($model->parent)){
-            $i = $dtoClassName::from($model->parent);
-            BreadcrumbHelper::add($i['name'], $i['url']);
-        }
-        $i = $dtoClassName::from($model);
-        BreadcrumbHelper::add($i['name'], $i['url']);
     }
 }

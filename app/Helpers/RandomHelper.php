@@ -20,7 +20,7 @@ class RandomHelper
         return $arrNumber;
     }
 
-    public function getRandomLokep(int $count = 1): array
+    static function getRandomLokep(int $count = 1): array
     {
         if ($count > 10)
             throw new \LogicException("Chỉ có 10 số lô kép thôi!");
@@ -29,7 +29,7 @@ class RandomHelper
         return array_slice($list, 0, $count);
     }
 
-    public function getRandomSTL(int $count = 1): array
+    static function getRandomSTL(int $count = 1): array
     {
         $pairs = [];
 
@@ -52,7 +52,7 @@ class RandomHelper
         return array_slice($pairs, 0, $count);
     }
 
-    public function getRandomNumber(int $numberLength = 2, int $count = 2): array {
+    static function getRandomNumber(int $numberLength = 2, int $count = 2): array {
         $min = 0;
         $max = (10 ** $numberLength) - 1;
 

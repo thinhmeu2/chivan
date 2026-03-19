@@ -47,9 +47,6 @@ class CategoryService extends BaseService
         return $this->applierList::apply($this->newQuery())
             ->whereIn('type', $typeValid)
             ->WhereDow($dateNToday)
-            ->with([
-                'url' => fn($q) => FeSelectListUrl::apply($q)
-            ])
             ->get();
     }
     public function categories(): Collection
