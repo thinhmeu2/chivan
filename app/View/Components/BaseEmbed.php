@@ -2,7 +2,9 @@
 
 namespace App\View\Components;
 
+use App\Helpers\CollectionHelper;
 use App\Helpers\DateHelper;
+use App\Services\FeServices\CategoryService;
 use App\Services\FeServices\KeyService;
 use Illuminate\Support\Facades\Http;
 use Illuminate\View\Component;
@@ -42,5 +44,15 @@ abstract class BaseEmbed extends Component
         }
 
         return new Crawler($response->body());
+    }
+    final protected function getTodayCategories(string $parentCode): array
+    {
+        $parentCode = strtoupper($parentCode);
+        if (! in_array($parentCode, ['XSMT', 'XSMN']))
+            throw new \LogicException("getTodayCategories valid if \$parentCode is 'XSMT' or 'XSMN'");
+        $todayCategories = resolve(CategoryService::class)->todayCategories();
+        $todayCategories = CollectionHelper::buildTree($todayCategories);
+        $todayCategories = $todayCategories->first(fn($i) => $i->code == 'XSMN')->children;
+        return $todayCategories->pluck('name')->toArray();
     }
 }
