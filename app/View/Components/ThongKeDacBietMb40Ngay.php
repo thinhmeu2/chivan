@@ -2,9 +2,6 @@
 
 namespace App\View\Components;
 
-use Illuminate\Support\Facades\Http;
-use Symfony\Component\DomCrawler\Crawler;
-
 class ThongKeDacBietMb40Ngay extends BaseEmbed
 {
     protected function getKey(): string
@@ -14,8 +11,7 @@ class ThongKeDacBietMb40Ngay extends BaseEmbed
 
     protected function logicGetData(): array
     {
-        $url = 'https://lodephomnayvip.org/';
-        $crawler = new Crawler(Http::get($url)->body());
+        $crawler = $this->crawler('https://lodephomnayvip.org/');
         $html = $crawler->filter('.widget-content')->html();
         // replace class
         $html = str_replace('tk-nhanh-item-header', 'bg-purple p-2 text-white', $html);

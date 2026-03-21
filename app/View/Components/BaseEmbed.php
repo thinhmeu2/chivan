@@ -4,7 +4,9 @@ namespace App\View\Components;
 
 use App\Helpers\DateHelper;
 use App\Services\FeServices\KeyService;
+use Illuminate\Support\Facades\Http;
 use Illuminate\View\Component;
+use Symfony\Component\DomCrawler\Crawler;
 
 abstract class BaseEmbed extends Component
 {
@@ -29,5 +31,16 @@ abstract class BaseEmbed extends Component
             $keyService->saveHtml($viewName, $today, $html);
         }
         return $html;
+    }
+    final public function crawler(string $url): Crawler
+    {
+        $response = Http::get($url);
+
+        // có thể thêm check fail cho đỡ ngu người lúc debug
+        if (!$response->successful()) {
+            throw new \RuntimeException("Failed to fetch: {$url}");
+        }
+
+        return new Crawler($response->body());
     }
 }
