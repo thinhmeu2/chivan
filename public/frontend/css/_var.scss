@@ -68,7 +68,8 @@
 $bgColors: shorten-key-value((
     'fff': #ffffff,
     'red': #c80505,
-    'purple': #7601AE
+    'purple': #7601AE,
+    'orange': #ffe89f
 ));
 
 $borderColors: shorten-key-value((
@@ -86,7 +87,7 @@ $borderColors: shorten-key-value((
     '999': #999999,
     'ff3547': #ff3547,
     'red': #c80505,
-    'dadada': #dadada
+    'orange': #ffe89f
 ));
 $textColors: shorten-key-value((
     '000': #000000,
@@ -96,16 +97,9 @@ $textColors: shorten-key-value((
 
 $fontSizes: (
     12: 12px,
-    13: 13px,
-    14: 14px,
     15: 15px,
     16: 16px,
-    18: 18px,
-    20: 20px,
-    22: 22px,
-    24: 24px,
-    30: 30px,
-    34: 34px
+    18: 18px
 );
 $roundeds: (
     0: 0,
