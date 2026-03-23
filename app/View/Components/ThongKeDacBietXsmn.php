@@ -2,7 +2,6 @@
 
 namespace App\View\Components;
 
-use App\Helpers\RandomHelper;
 use Symfony\Component\DomCrawler\Crawler;
 
 class ThongKeDacBietXsmn extends BaseEmbed

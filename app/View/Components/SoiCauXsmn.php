@@ -2,8 +2,6 @@
 
 namespace App\View\Components;
 
-use App\Helpers\RandomHelper;
-
 class SoiCauXsmn extends BaseEmbed
 {
     protected function getKey(): string
