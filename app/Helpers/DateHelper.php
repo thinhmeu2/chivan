@@ -13,18 +13,6 @@ class DateHelper
         return $date->format(config('app.date_format'));
     }
 
-    public static function today(): Carbon
-    {
-        $now = now();
-
-        $changeHour = (int) config('app.time_change_day');
-
-        if ($now->hour >= $changeHour) {
-            $now->addDay();
-        }
-
-        return $now;
-    }
     public static function dateNToday(): int
     {
         $now = now();
@@ -46,5 +34,29 @@ class DateHelper
         $days = $now->hour <= $changeHour ? 1 : 0;
 
         return $now->subDays($days)->format('N');
+    }
+    public static function today(): Carbon
+    {
+        $now = now();
+
+        $changeHour = (int) config('app.time_change_day');
+
+        if ($now->hour >= $changeHour) {
+            $now = $now->addDay();
+        }
+
+        return $now->startOfDay();
+    }
+    public static function yesterday(): Carbon
+    {
+        $now = now();
+
+        $changeHour = (int) config('app.time_change_day');
+
+        if ($now->hour < $changeHour) {
+            $now = $now->subDay();
+        }
+
+        return $now->startOfDay();
     }
 }

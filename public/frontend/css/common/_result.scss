@@ -10,13 +10,23 @@
     }
     td:first-child{
         width: 80px;
+        font-size: 14px;
+        font-weight: 400;
     }
 }
 .table-kqxs-xsmb{
+    .number{
+        width: 33%;
+    }
     tr {
-        &:nth-child(5), &:nth-child(7) {
+        &:nth-child(2), &:nth-child(9){
             .number{
-                width: 33%;
+                color: #c80505;
+            }
+        }
+        &:nth-child(6), &:nth-child(9){
+            .number{
+                width: 24%;
             }
         }
     }
