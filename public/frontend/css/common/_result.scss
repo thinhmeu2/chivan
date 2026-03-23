@@ -8,10 +8,12 @@
             content: '...';
         }
     }
-    td:first-child{
-        width: 80px;
-        font-size: 14px;
-        font-weight: 400;
+    td,th {
+        &:first-child{
+            width: 80px;
+            font-size: 14px;
+            font-weight: 400;
+        }
     }
 }
 .table-kqxs-xsmb{
@@ -33,7 +35,16 @@
 }
 .table-kqxs-multi{
     .number{
-        display: block !important;
+        display: flex !important;
+    }
+    tbody {
+        tr{
+            &:nth-child(1), &:nth-child(9){
+                .number {
+                    color: #c80505;
+                }
+            }
+        }
     }
 }
 .table-kqxs-province{
@@ -46,18 +57,5 @@
 .table-loto{
     td:first-child{
         width: 80px;
-    }
-}
-
-.table-kqxs-3d{
-    tr:nth-child(3){
-        .number{
-            width: 30%;
-        }
-    }
-    tr:nth-child(4){
-        .number{
-            width: 22%;
-        }
     }
 }
