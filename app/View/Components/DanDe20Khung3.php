@@ -1,0 +1,40 @@
+<?php
+
+namespace App\View\Components;
+
+use App\Services\FeServices\SoiCauService;
+
+class DanDe20Khung3 extends BaseEmbed
+{
+    protected bool $saveDb = false;
+    protected function getKey(): string
+    {
+        return 'dan-de20-khung3';
+    }
+
+    protected function logicGetData(): array
+    {
+        $rows = resolve(SoiCauService::class)->getByKey('dande20sokhung3');
+        $tmp = [];
+        foreach ($rows as $i){
+            $winDay = $i->win_day;
+
+            if (is_null($winDay))
+                $td3 = '...';
+            elseif ($winDay === 0)
+                $td3 = "<span class=text-666>Trượt</span>";
+            else {
+                $td3 = "Ăn đề <b class=text-red>" . array_key_first($i->number_win) . "</b> ngày $i->win_day";
+            }
+            $tmp[] = [
+                $i->start_date->format('d').'-'.$i->getEndDate()->format('d/m/Y'),
+                implode(' - ', $i->number),
+                $td3
+            ];
+        }
+
+        return [
+            'rows' => $tmp,
+        ];
+    }
+}
