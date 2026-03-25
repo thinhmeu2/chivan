@@ -12,13 +12,12 @@ class Soicau extends BaseModel
         'number' => 'array',
         'result' => 'array',
         'start_date' => 'datetime',
-        'end_date' => 'datetime',
     ];
 
-    public function getLatestSoiCau(string $type): ?SoiCau
+    public function getLatestSoiCau(string $key): ?SoiCau
     {
-        return SoiCau::query()
-            ->where('type', $type)
+        return $this->newQuery()
+            ->where('key', $key)
             ->orderByDesc('start_date')
             ->first();
     }
@@ -28,20 +27,20 @@ class Soicau extends BaseModel
     }
     public function updateSoiCau(int $id, array $data): int
     {
-        return SoiCau::query()
+        return $this->newQuery()
             ->where('id', $id)
             ->update($data);
     }
     public function updateSoiCauV2(int $id, Base $model): int
     {
-        return SoiCau::query()
+        return $this->newQuery()
             ->where('id', $id)
             ->update($model->toArray());
     }
-    public function getListSoiCau(string $type, int $limit = 10): array
+    public function getListSoiCau(string $key, int $limit = 10): array
     {
-        return SoiCau::query()
-            ->where('type', $type)
+        return $this->newQuery()
+            ->where('key', $key)
             ->where('is_active', true)
             ->orderByDesc('start_date')
             ->limit($limit)
@@ -50,7 +49,7 @@ class Soicau extends BaseModel
     }
     public function resetResult(string $key, string $fromDate, ?string $toDate = null): int
     {
-        $query = SoiCau::query()
+        $query = $this->newQuery()
             ->where('key', $key)
             ->whereDate('start_date', '>=', $fromDate);
 
@@ -64,8 +63,8 @@ class Soicau extends BaseModel
     }
     public function deleteResult(string $key, int $limit = 10): int
     {
-        $ids = SoiCau::query()
-            ->where('type', $key)
+        $ids = $this->newQuery()
+            ->where('key', $key)
             ->orderByDesc('id')
             ->limit($limit)
             ->pluck('id');

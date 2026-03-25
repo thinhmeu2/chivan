@@ -55,4 +55,11 @@ abstract class BaseEmbed extends Component
         $todayCategories = $todayCategories->first(fn($i) => $i->code == 'XSMN')->children;
         return $todayCategories->pluck('name')->toArray();
     }
+    final protected function getLotoAtrungRoi(Crawler $divPosition): array
+    {
+        return [
+            'draw_date' => '',
+            'loto' => $loto
+        ];
+    }
 }
