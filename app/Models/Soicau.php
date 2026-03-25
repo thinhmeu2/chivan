@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Keys\Base;
+use Illuminate\Support\Carbon;
 
 class Soicau extends BaseModel
 {
@@ -10,7 +11,7 @@ class Soicau extends BaseModel
     protected $table = 'soicau';
     protected $casts = [
         'number' => 'array',
-        'result' => 'array',
+        'number_win' => 'array',
         'start_date' => 'datetime',
     ];
 
@@ -72,5 +73,12 @@ class Soicau extends BaseModel
         return SoiCau::query()
             ->whereIn('id', $ids)
             ->delete();
+    }
+
+    public function getEndDate(): Carbon
+    {
+        return $this->start_date
+            ->copy()
+            ->addDays($this->range_day - 1);
     }
 }

@@ -12,6 +12,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 abstract class BaseEmbed extends Component
 {
+    protected bool $saveDb = true;
     final public function __construct()
     {
 
@@ -27,11 +28,20 @@ abstract class BaseEmbed extends Component
         $keyService = resolve(KeyService::class);
         $viewName = $this->getKey();
         $today = DateHelper::today();
+
+        // nếu không save DB thì render thẳng, khỏi cache
+        if (! $this->saveDb) {
+            return $this->view("components.$viewName", $this->logicGetData());
+        }
+
+        // có save DB thì mới dùng cache
         $html = $keyService->getHtmlFromDb($viewName, $today);
-        if (! $html){
+
+        if (! $html) {
             $html = $this->view("components.$viewName", $this->logicGetData());
             $keyService->saveHtml($viewName, $today, $html);
         }
+
         return $html;
     }
     final public function crawler(string $url): Crawler
@@ -54,12 +64,5 @@ abstract class BaseEmbed extends Component
         $todayCategories = CollectionHelper::buildTree($todayCategories);
         $todayCategories = $todayCategories->first(fn($i) => $i->code == 'XSMN')->children;
         return $todayCategories->pluck('name')->toArray();
-    }
-    final protected function getLotoAtrungRoi(Crawler $divPosition): array
-    {
-        return [
-            'draw_date' => '',
-            'loto' => $loto
-        ];
     }
 }
