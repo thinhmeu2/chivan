@@ -9,10 +9,10 @@ $td1 = [
 @endphp
 <div class="overflow-auto">
     <table class="text-center">
-        <template>
-            <th style="width: 150px;"></th>
-            <th></th>
-        </template>
+        <colgroup>
+            <col style="width: 150px;">
+            <col>
+        </colgroup>
         @foreach($data as $i)
             <tr>
                 <th colspan="2" class="text-white bg-blue">Dự đoán xổ số {{ $i['name'] }}</th>
