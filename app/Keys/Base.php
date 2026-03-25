@@ -62,6 +62,7 @@ abstract class Base
 
     protected function logicChangeResult(array $loto = []): bool
     {
+        $loto = ResultHelper::getLoto($loto);
         if ($this->checkOnlySpecial) {
             $loto = array_slice($loto, 0, 1);
         }
@@ -151,8 +152,8 @@ abstract class Base
         $results = $this->getResult();
         $endDate = $this->getEndDate()->toDateString();
 
-        foreach ($results as $date => $loto) {
-            if ($this->logicChangeResult($loto)) {
+        foreach ($results as $date => $result) {
+            if ($this->logicChangeResult($result)) {
                 $this->logicChangeWinDate($date);
                 break;
             }
@@ -183,7 +184,7 @@ abstract class Base
 
             if ($drawDate->between($start, $end)) {
                 $dateKey = $drawDate->toDateString();
-                $tmp[$dateKey] = ResultHelper::getLoto($item['results']);
+                $tmp[$dateKey] = $item['results'];
             }
         }
 

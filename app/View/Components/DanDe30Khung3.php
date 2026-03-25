@@ -6,6 +6,7 @@ use App\Services\FeServices\SoiCauService;
 
 class DanDe30Khung3 extends BaseEmbed
 {
+    use TraitSoicau;
     protected bool $saveDb = false;
     protected function getKey(): string
     {
@@ -20,9 +21,9 @@ class DanDe30Khung3 extends BaseEmbed
             $winDay = $i->win_day;
 
             if (is_null($winDay))
-                $td3 = '...';
+                $td3 = $this->getTextWaiting();
             elseif ($winDay === 0)
-                $td3 = "<span class=text-666>Trượt</span>";
+                $td3 = $this->getTextMiss();
             else {
                 $td3 = "Ăn đề <b class=text-red>" . array_key_first($i->number_win) . "</b> ngày $i->win_day";
             }

@@ -4,10 +4,8 @@ namespace App\Helpers;
 
 class ResultHelper
 {
-    public static function getLoto(array $results): array
+    public static function getLoto(array $results, int $length = 2): array
     {
-        return array_map(function ($number) {
-            return substr($number, -2);
-        }, $results);
+        return array_map(fn($number) => substr($number, -$length), $results);
     }
 }

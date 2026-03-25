@@ -31,14 +31,14 @@ abstract class BaseEmbed extends Component
 
         // nếu không save DB thì render thẳng, khỏi cache
         if (! $this->saveDb) {
-            return $this->view("components.$viewName", $this->logicGetData());
+            return $this->view("components.$viewName", $this->logicGetData())->render();
         }
 
         // có save DB thì mới dùng cache
         $html = $keyService->getHtmlFromDb($viewName, $today);
 
         if (! $html) {
-            $html = $this->view("components.$viewName", $this->logicGetData());
+            $html = $this->view("components.$viewName", $this->logicGetData())->render();
             $keyService->saveHtml($viewName, $today, $html);
         }
 

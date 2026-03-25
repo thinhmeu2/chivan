@@ -4,34 +4,35 @@ namespace App\View\Components;
 
 use App\Services\FeServices\SoiCauService;
 
-class DanDe10Khung3 extends BaseEmbed
+class De3Cang extends BaseEmbed
 {
     use TraitSoicau;
     protected bool $saveDb = false;
     protected function getKey(): string
     {
-        return 'dan-de10-khung3';
+        return 'de3cang';
     }
 
     protected function logicGetData(): array
     {
-        $rows = resolve(SoiCauService::class)->getByKey('dande10sokhung3');
+        $rows = resolve(SoiCauService::class)->getByKey('de3cang');
         $tmp = [];
         foreach ($rows as $i){
+            $td1 = $i->start_date->format('d/m/Y');
+            $td2 = implode(' ', $i->number);
             $winDay = $i->win_day;
-
             if (is_null($winDay))
                 $td3 = $this->getTextWaiting();
             elseif ($winDay === 0)
                 $td3 = $this->getTextMiss();
             else {
-                $td3 = "Ăn đề <b class=text-red>" . array_key_first($i->number_win) . "</b> ngày $i->win_day";
+                $td3 = 'Trúng <b class=text-red>';
+                foreach ($i->number_win as $number => $count){
+                    $td3 .= " $number" . ($count>1 ? "x$count" : '');
+                }
+                $td3 .= '</b>';
             }
-            $tmp[] = [
-                $i->start_date->format('d').'-'.$i->getEndDate()->format('d/m/Y'),
-                implode(' - ', $i->number),
-                $td3
-            ];
+            $tmp[] = [$td1, $td2, $td3];
         }
 
         return [
