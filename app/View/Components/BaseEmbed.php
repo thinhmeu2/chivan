@@ -62,7 +62,7 @@ abstract class BaseEmbed extends Component
             throw new \LogicException("getTodayCategories valid if \$parentCode is 'XSMT' or 'XSMN'");
         $todayCategories = resolve(CategoryService::class)->todayCategories();
         $todayCategories = CollectionHelper::buildTree($todayCategories);
-        $todayCategories = $todayCategories->first(fn($i) => $i->code == 'XSMN')->children;
+        $todayCategories = $todayCategories->first(fn($i) => $i->code == $parentCode)->children;
         return $todayCategories->pluck('name')->toArray();
     }
 }
