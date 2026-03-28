@@ -2,7 +2,7 @@
     <table class="text-center">
         <tr class="text-blue">
             <th style="width: 150px">Ngày</th>
-            <th>Dàn đề 10 số nuôi khung 3 ngày</th>
+            <th>Dàn đề 30 số nuôi khung 3 ngày</th>
             <th style="width: 150px">Kết quả</th>
         </tr>
         @foreach($rows as $i)
