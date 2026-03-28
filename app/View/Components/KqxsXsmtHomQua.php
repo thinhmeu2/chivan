@@ -35,7 +35,8 @@ class KqxsXsmtHomQua extends BaseEmbed
         $html = $tableNode->outerHtml();
 
         // giữ nguyên mớ replace của mày
-        $html = str_replace('table align-middle kq-table Sunday xsmt js-kq-table', 'table-kqxs table-kqxs-multi text-center fw-7', $html);
+        $html = preg_replace('#<table.*?>#', '<table class="table-kqxs table-kqxs-multi text-center fw-7">', $html);
+//        $html = str_replace('table align-middle kq-table Sunday xsmt js-kq-table', 'table-kqxs table-kqxs-multi text-center fw-7', $html);
         $html = str_replace('fs-6', 'fs-12', $html);
         $html = str_replace(' class="d-block d-sm-inline-block fw-normal"', '', $html);
         $html = preg_replace('# data-page-id\S+#', '', $html);
