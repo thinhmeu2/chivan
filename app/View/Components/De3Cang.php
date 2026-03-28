@@ -23,7 +23,7 @@ class De3Cang extends BaseEmbed
             $winDay = $i->win_day;
             if (is_null($winDay))
                 $td3 = $this->getTextWaiting();
-            elseif ($winDay === 0)
+            elseif (! $winDay)
                 $td3 = $this->getTextMiss();
             else {
                 $td3 = 'Trúng <b class=text-red>';

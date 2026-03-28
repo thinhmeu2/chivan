@@ -22,7 +22,7 @@ class DanDe10Khung3 extends BaseEmbed
 
             if (is_null($winDay))
                 $td3 = $this->getTextWaiting();
-            elseif ($winDay === 0)
+            elseif (! $winDay)
                 $td3 = $this->getTextMiss();
             else {
                 $td3 = "Ăn đề <b class=text-red>" . array_key_first($i->number_win) . "</b> ngày $i->win_day";
